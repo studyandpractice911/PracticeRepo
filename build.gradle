@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.0'
+}
+
+group = 'com.practice.repo'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation("org.springframework:spring-core:6.1.14")
+    implementation("org.springframework:spring-context:6.1.14")
+    implementation("com.codeborne:selenide:7.5.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
+    implementation("io.rest-assured:rest-assured:5.5.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.9.2")
+    implementation("io.qameta.allure:allure-testng:2.29.0")
+    implementation("io.qameta.allure:allure-selenide:2.29.0")
+    implementation("io.qameta.allure:allure-rest-assured:2.29.0")
+
+    testImplementation("org.springframework:spring-test:6.1.14")
+    testImplementation("ch.qos.logback:logback-classic:1.5.12")
+    testImplementation("org.testng:testng:7.10.2")
+
+    runtimeOnly("org.aspectj:aspectjrt:1.9.22.1")
+    runtimeOnly("org.aspectj:aspectjweaver:1.9.22.1")
+
+}
+
+test {
+    useTestNG()
+}
+
+test.finalizedBy(allureServe)
