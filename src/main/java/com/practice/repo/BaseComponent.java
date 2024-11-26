@@ -27,6 +27,19 @@ public class BaseComponent extends SpringComponentConfiguration {
     @Autowired
     Environment environment;
 
+    private void resolveUrl(String packageName, String resourcePath) {
+        String URL;
+        String baseUrlKey = packageName.concat(".base.url");
+        try{
+            String baseUrl = Objects.requireNonNull(environment.getProperty(baseUrlKey));
+            URL = baseUrl.concat(resourcePath);
+        }catch (NullPointerException e){
+            throw new NullPointerException("Please define baseUrl in property file like this : " + baseUrlKey);
+        }
+        log.info("Resolved URL is {}", URL);
+        System.setProperty("base.url", URL);
+    }
+
     private WebDriver configureDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -41,25 +54,22 @@ public class BaseComponent extends SpringComponentConfiguration {
     }
 
     public void launchDriver(String packageName, String resourcePath) {
-        String URL;
-        String baseUrlKey = packageName.concat(".base.url");
-        try{
-            String baseUrl = Objects.requireNonNull(environment.getProperty(baseUrlKey));
-            URL = baseUrl.concat(resourcePath);
-        }catch (NullPointerException e){
-            throw new NullPointerException("Please define baseUrl in property file like this : " + baseUrlKey);
-        }
+        resolveUrl(packageName, resourcePath);
         if (!WebDriverRunner.hasWebDriverStarted()) {
             WebDriver driver = configureDriver();
             WebDriverRunner.setWebDriver(driver);
         }
-        log.info("Going to open {}", URL);
-        Selenide.open(URL);
+        Selenide.open(System.getProperty("base.url"));
+    }
+
+    public void requestSpecification(String packageName, String resourcePath) {
+        resolveUrl(packageName, resourcePath);
     }
 
     protected RequestSpecification request() {
         return RestAssured.given()
                 .filter(new AllureRestAssured())
+                .baseUri(System.getProperty("base.url"))
                 .log().all();
     }
 

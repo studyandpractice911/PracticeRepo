@@ -11,7 +11,6 @@ import org.testng.annotations.BeforeSuite;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.practice.repo.enums.ResourceType.UI;
 
 public class BaseTest extends SpringTestConfiguration {
 
@@ -24,22 +23,23 @@ public class BaseTest extends SpringTestConfiguration {
         }
         assert applicationContext != null;
         T bean = applicationContext.getBean(component);
-        String packageName = new String();
-        String resourcePath = new String();
-        boolean shouldLaunchDriver = false;
+        String packageName;
+        String resourcePath;
+        boolean shouldLaunchWebDriver = false;
+        boolean shouldConfigureRestAssuredRequest = false;
         try {
             Resource resource = bean.getClass().getAnnotation(Resource.class);
-            if(resource.type().equals(UI)){
-                packageName = Arrays.stream(bean.getClass().getPackageName().split("\\.")).toList().getLast();
-                resourcePath = bean.getClass().getAnnotation(Resource.class).path();
-                shouldLaunchDriver=true;
+            resourcePath = resource.path();
+            switch (resource.type()){
+                case UI -> shouldLaunchWebDriver=true;
+                case API -> shouldConfigureRestAssuredRequest=true;
             }
+            packageName = Arrays.stream(bean.getClass().getPackageName().split("\\.")).toList().getLast();
         } catch (NullPointerException e){
             throw new NullPointerException("Please define @Resource annotation in class : " + bean.getClass().getCanonicalName());
         }
-        if(shouldLaunchDriver) {
-            baseComponent.launchDriver(packageName, resourcePath);
-        }
+        if(shouldLaunchWebDriver) baseComponent.launchDriver(packageName, resourcePath);
+        if(shouldConfigureRestAssuredRequest) baseComponent.requestSpecification(packageName, resourcePath);
         return bean;
     }
 
