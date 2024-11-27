@@ -3,6 +3,7 @@ package com.practice.repo;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
@@ -59,7 +60,7 @@ public class BaseComponent extends SpringComponentConfiguration {
             WebDriver driver = configureDriver();
             WebDriverRunner.setWebDriver(driver);
         }
-        Selenide.open(System.getProperty("base.url"));
+        openPage();
     }
 
     public void requestSpecification(String packageName, String resourcePath) {
@@ -71,6 +72,11 @@ public class BaseComponent extends SpringComponentConfiguration {
                 .filter(new AllureRestAssured())
                 .baseUri(System.getProperty("base.url"))
                 .log().all();
+    }
+
+    @Step
+    private void openPage() {
+        Selenide.open(System.getProperty("base.url"));
     }
 
 }

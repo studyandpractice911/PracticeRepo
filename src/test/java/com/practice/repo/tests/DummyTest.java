@@ -18,13 +18,13 @@ public class DummyTest extends BaseTest {
 
     @Test
     public void testA() {
-        getComponent(TutorialsPointAlerts.class).checkAlert();
-        getComponent(TutorialsPointRegisterUser.class).registerUser(FIRST_NAME, LAST_NAME);
+        componentManager.getComponent(TutorialsPointAlerts.class).checkAlert();
+        componentManager.getComponent(TutorialsPointRegisterUser.class).registerUser(FIRST_NAME, LAST_NAME);
     }
 
     @Test
     public void testB() {
-        getComponent(FakeRESTApi.class).getBook(BOOK_ID);
+        componentManager.getComponent(FakeRESTApi.class).getBook(BOOK_ID);
     }
 
 }
