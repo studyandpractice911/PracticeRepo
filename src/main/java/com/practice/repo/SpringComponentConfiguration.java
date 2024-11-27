@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan
-//@PropertySource("classpath:${test.config}.properties")
-@PropertySource("classpath:default.properties")
+@PropertySource("classpath:${property.filename}.properties")
 public class SpringComponentConfiguration {
 }

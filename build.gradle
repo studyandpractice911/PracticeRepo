@@ -35,4 +35,8 @@ test {
     useTestNG()
 }
 
+//TODO - To execute test in IDE - uncomment and specify property file name below
+//test.systemProperty("property.filename", "default")
+
+//TODO - To prevent allure report from getting generated automatically after each test execution - comment below line
 test.finalizedBy(allureServe)
