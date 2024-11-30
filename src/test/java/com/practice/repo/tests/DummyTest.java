@@ -7,6 +7,10 @@ import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class DummyTest extends BaseTest {
 
     @Value("${book.id}")
@@ -15,6 +19,22 @@ public class DummyTest extends BaseTest {
     protected String FIRST_NAME;
     @Value("${last.name}")
     protected String LAST_NAME;
+
+    @Test
+    public void fib(){
+        Stream.iterate(List.of(0,1), f -> List.of(f.getLast(), f.getFirst()+f.getLast()))
+                .limit(20)
+                .map(List::getFirst)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void prime(){
+        IntStream.rangeClosed(0, 20)
+                .filter(dividend -> dividend > 1)
+                .filter(dividend -> IntStream.range(2, dividend).noneMatch(divisor -> dividend % divisor == 0))
+                .forEach(System.out::println);
+    }
 
     @Test
     public void testA() {
