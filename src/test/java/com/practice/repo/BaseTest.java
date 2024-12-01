@@ -15,7 +15,7 @@ public class BaseTest extends SpringTestConfiguration {
     protected ComponentManager componentManager;
 
     @BeforeSuite
-    public void prepareSuite() {
+    public void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(false));

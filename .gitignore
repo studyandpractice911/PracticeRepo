@@ -55,5 +55,4 @@ bin/
 /ajcore.20241124.234529.080.txt
 /ajcore.20241124.234640.289.txt
 /.idea/inspectionProfiles/Project_Default.xml
-/allure-results/d0802917-347e-444d-a71c-8cd0eec14051-attachment.html
-/allure-results/f39ea876-118b-47d3-acf7-79e5af8eb914-attachment.html
+/allure-results/*.html

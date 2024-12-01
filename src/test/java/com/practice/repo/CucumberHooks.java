@@ -12,14 +12,14 @@ public class CucumberHooks extends SpringTestConfiguration {
 
     //TODO - More configuration required
 
-    @Before
-    public void prepareSuite() {
+    @Before("@UI")
+    public void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(false));
     }
 
-    @After
+    @After("@UI")
     public void closeDriver() {
         if (WebDriverRunner.hasWebDriverStarted()) {
             closeWebDriver();
