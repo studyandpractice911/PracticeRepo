@@ -1,4 +1,4 @@
-package glues;
+package com.practice.repo.glues;
 
 import com.practice.repo.BaseTest;
 import com.practice.repo.components.fakeRestApi.FakeRESTApi;
