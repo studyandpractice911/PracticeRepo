@@ -27,7 +27,7 @@ dependencies {
     implementation("io.qameta.allure:allure-cucumber7-jvm:2.29.0")
 
     testImplementation("org.springframework:spring-test:6.1.14")
-    testImplementation("ch.qos.logback:logback-classic:1.5.12")
+    testImplementation("ch.qos.logback:logback-classic:1.5.16")
     testImplementation("org.testng:testng:7.10.2")
     testImplementation("io.cucumber:cucumber-junit:7.20.1")
 
