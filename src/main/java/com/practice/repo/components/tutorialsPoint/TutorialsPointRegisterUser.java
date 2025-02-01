@@ -3,9 +3,11 @@ package com.practice.repo.components.tutorialsPoint;
 import com.practice.repo.BaseComponent;
 import com.practice.repo.utils.Resource;
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.springframework.stereotype.Component;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.practice.repo.enums.ResourceType.UI;
 
 @Component
@@ -25,6 +27,8 @@ public class TutorialsPointRegisterUser extends BaseComponent {
         $x(USERNAME_XPATH).setValue(firstName + lastname);
         $x(PASSWORD_XPATH).setValue(firstName + "@" + lastname);
         $x(REGISTER_XPATH).click();
+        JavascriptExecutor execute = (JavascriptExecutor) getWebDriver();
+        execute.executeScript("alert('Registered successfully');");
         return this;
     }
 

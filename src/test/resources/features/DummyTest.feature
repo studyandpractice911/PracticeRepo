@@ -6,6 +6,8 @@ Feature: Dummy feature
   @UI
   Scenario: UI testing
     Given User opens tutorials point webpage
+      |title|value|
+      |title1|value1|
     When User enters "firstName" and "lastName"
     Then User clicks on register button
 
