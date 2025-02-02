@@ -4,6 +4,10 @@ import com.practice.repo.BaseTest;
 import com.practice.repo.components.fakeRestApi.FakeRESTApi;
 import com.practice.repo.components.tutorialsPoint.TutorialsPointAlerts;
 import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
+
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -11,12 +15,15 @@ import io.restassured.response.Response;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Value;
-import org.testng.annotations.Listeners;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
@@ -24,6 +31,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 public class DummyTest extends BaseTest {
 
     @Value("${book.id}")
@@ -32,6 +40,13 @@ public class DummyTest extends BaseTest {
     protected String FIRST_NAME;
     @Value("${last.name}")
     protected String LAST_NAME;
+
+    WebDriver driver;
+    String NUM_6 = "//android.widget.Button[@text='6']";
+    String NUM_9 = "//android.widget.Button[@text='9']";
+    String MULTIPLY = "//android.widget.Button[@content-desc='multiply']";
+    String RESULT = "//android.widget.TextView[@index='2']";
+    String CLEAR_ALL = "//android.widget.TextView[@text='CLEAR ALL']";
 
     @Test
     public void fibbonacci() {
@@ -64,6 +79,39 @@ public class DummyTest extends BaseTest {
     @Test
     public void testB() {
         componentManager.getComponent(FakeRESTApi.class).getBook(BOOK_ID);
+    }
+
+    /**
+     * adb shell dumpsys window displays - To get appPackage and appActivity
+     */
+    public void setupAndroidDriverWithCapabilities() throws MalformedURLException {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("appium:platformName", "ANDROID");
+        capabilities.setCapability("appium:deviceName", "myAndroidVM");
+        capabilities.setCapability("appium:platformVersion", "7");
+        capabilities.setCapability("appium:automationName", "UiAutomator2");
+        capabilities.setCapability("appium:appPackage", "com.android.calculator2");
+        capabilities.setCapability("appium:appActivity", "com.android.calculator2.Calculator");
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), capabilities);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30L));
+    }
+
+    @Test
+    public void appiumTest() throws MalformedURLException {
+        setupAndroidDriverWithCapabilities();
+        driver.findElement(By.xpath(NUM_6)).click();
+        driver.findElement(By.xpath(MULTIPLY)).click();
+        driver.findElement(By.xpath(NUM_9)).click();
+        String result = driver.findElement(By.xpath(RESULT)).getAttribute("text");
+        Assert.assertEquals(result, "54");
+        teardown();
+    }
+
+    public void teardown(){
+        AndroidDriver androidDriver = (AndroidDriver) driver;
+        androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
+        androidDriver.pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
+        androidDriver.findElement(By.xpath(CLEAR_ALL)).click();
     }
 
     @Test
