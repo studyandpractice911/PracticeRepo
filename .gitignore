@@ -56,3 +56,6 @@ bin/
 /ajcore.20241124.234640.289.txt
 /.idea/inspectionProfiles/Project_Default.xml
 /allure-results/*.html
+/.idea/caches/deviceStreaming.xml
+/local.properties
+/.idea/runConfigurations.xml
