@@ -8,10 +8,10 @@ import org.openqa.selenium.Alert;
 import org.springframework.stereotype.Component;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.practice.repo.enums.ResourceType.UI;
+import static com.practice.repo.enums.ResourceType.WEB;
 
 @Component
-@Resource(path = "/alerts.php", type = UI)
+@Resource(path = "/alerts.php", type = WEB)
 public class TutorialsPointAlerts extends BaseComponent {
 
     private static final String ALERT_XPATH = "//button[text()='Alert']";

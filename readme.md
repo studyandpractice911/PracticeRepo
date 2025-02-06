@@ -20,3 +20,7 @@
 1) Run _clean_ task (optional step)
 2) Define property file name in _[SpringComponentConfiguration.java](src/main/java/com/practice/repo/SpringComponentConfiguration.java)_
 3) Run your feature file [DummyTest.java](src/test/resources/features/DummyTest.feature)
+
+### To get appPackage and appActivity for Android in Appium
+--->  `adb shell dumpsys window displays`
+

@@ -3,6 +3,7 @@ package com.practice.repo.tests;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import com.practice.repo.BaseTest;
+import com.practice.repo.components.appium.AndroidLauncher;
 import com.practice.repo.components.fakeRestApi.FakeRESTApi;
 import com.practice.repo.components.tutorialsPoint.TutorialsPointAlerts;
 import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
@@ -10,24 +11,18 @@ import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -41,9 +36,6 @@ public class DummyTest extends BaseTest {
     protected String FIRST_NAME;
     @Value("${last.name}")
     protected String LAST_NAME;
-
-    AndroidDriver androidDriver;
-    String CLEAR_ALL = "//android.widget.TextView[@text='CLEAR ALL']";
 
     @Test
     public void fibbonacci() {
@@ -78,44 +70,16 @@ public class DummyTest extends BaseTest {
         componentManager.getComponent(FakeRESTApi.class).getBook(BOOK_ID);
     }
 
-    /**
-     * adb shell dumpsys window displays - To get appPackage and appActivity
-     */
-    public void setupAndroidDriverWithCapabilities() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("appium:automationName", "UiAutomator2");
-        capabilities.setCapability("appium:platformName", "ANDROID");
-        capabilities.setCapability("appium:platformVersion", "7");
-        capabilities.setCapability("appium:deviceName", "myAndroidVM");
-//        capabilities.setCapability("appium:appPackage", "com.example.android.apis");
-//        capabilities.setCapability("appium:appActivity", "com.example.android.apis.ApiDemos");
-        androidDriver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), capabilities);
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
+    @Test
+    public void callTest() {
+        componentManager
+                .getComponent(AndroidLauncher.class)
+                .openPhone()
+                .dialNumber("0123456789");
     }
 
     @Test
-    public void appiumTest() throws MalformedURLException {
-        setupAndroidDriverWithCapabilities();
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@content-desc='Apps']")).click();
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@text='API Demos']")).click();
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@text='Views']")).click();
-        Map<String, String> params = Map.of(
-                "strategy", "-android uiautomator",
-                "selector", "new UiSelector().text(\"System UI Visibility\")",
-                "direction", "down"
-        );
-        androidDriver.executeScript("mobile: scroll", params);
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@text='System UI Visibility']")).click();
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@text='Content Browser']")).click();
-        String text = androidDriver.findElement(By.xpath("(//android.widget.TextView)[2]")).getAttribute("text");
-        System.out.println(text);
-        teardown();
-    }
-
-    public void teardown() {
-        androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
-        androidDriver.pressKey(new KeyEvent(AndroidKey.APP_SWITCH));
-        androidDriver.findElement(By.xpath(CLEAR_ALL)).click();
+    public void googleAppTest() {
     }
 
     @Test

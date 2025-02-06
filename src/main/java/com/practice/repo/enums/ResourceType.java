@@ -1,5 +1,7 @@
 package com.practice.repo.enums;
 
 public enum ResourceType {
-    UI , API
+    WEB,
+    API,
+    ANDROID
 }

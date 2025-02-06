@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.practice.repo.enums.ResourceType.UI;
+import static com.practice.repo.enums.ResourceType.WEB;
 
 @Component
-@Resource(path = "/register.php", type = UI)
+@Resource(path = "/register.php", type = WEB)
 public class TutorialsPointRegisterUser extends BaseComponent {
 
     private static final String FIRST_NAME_XPATH = "//input[@id='firstname']";
