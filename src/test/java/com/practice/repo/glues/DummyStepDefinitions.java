@@ -3,6 +3,10 @@ package com.practice.repo.glues;
 import com.practice.repo.BaseTest;
 import com.practice.repo.components.fakeRestApi.FakeRESTApi;
 import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
+
+import java.util.Map;
+
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,9 +20,11 @@ public class DummyStepDefinitions extends BaseTest {
         componentManager.getComponent(TutorialsPointRegisterUser.class);
     }
 
-    @When("User enters {string} and {string}")
-    public void userEntersAnd(String arg0, String arg1) {
-        componentManager.getComponent(TutorialsPointRegisterUser.class).registerUser(arg0, arg1);
+    @When("User enters first and last names")
+    public void userEntersAnd(DataTable dataTable) {
+        Map<String, String> name = dataTable.asMap();
+        componentManager.getComponent(TutorialsPointRegisterUser.class)
+                .registerUser(name.get("first"), name.get("last"));
     }
 
     @Then("User clicks on register button")

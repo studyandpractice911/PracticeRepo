@@ -6,9 +6,9 @@ Feature: Dummy feature
   @UI
   Scenario: UI testing
     Given User opens tutorials point webpage
-      |title|value|
-      |title1|value1|
-    When User enters "firstName" and "lastName"
+    When User enters first and last names
+      |first|Jane|
+      |last|Doe|
     Then User clicks on register button
 
   @API
