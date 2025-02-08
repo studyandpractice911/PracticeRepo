@@ -1,4 +1,4 @@
-package com.practice.repo.components.tutorialsPoint;
+package com.practice.repo.components.web.tutorialsPoint;
 
 import com.practice.repo.BaseComponent;
 import com.practice.repo.utils.Resource;

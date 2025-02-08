@@ -1,4 +1,4 @@
-package com.practice.repo.components.tutorialsPoint;
+package com.practice.repo.components.web.tutorialsPoint;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.practice.repo.BaseComponent;

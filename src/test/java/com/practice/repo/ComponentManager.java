@@ -23,8 +23,9 @@ public class ComponentManager extends SpringTestConfiguration {
         boolean shouldLaunchWebDriver = false;
         boolean shouldLaunchAndroidDriver = false;
         boolean shouldConfigureRestAssuredRequest = false;
+        Resource resource;
         try {
-            Resource resource = bean.getClass().getAnnotation(Resource.class);
+            resource = bean.getClass().getAnnotation(Resource.class);
             resourcePath = resource.path();
             switch (resource.type()) {
                 case WEB -> shouldLaunchWebDriver = true;
@@ -35,9 +36,11 @@ public class ComponentManager extends SpringTestConfiguration {
         } catch (NullPointerException e) {
             throw new NullPointerException("Please define @Resource annotation in class : " + bean.getClass().getCanonicalName());
         }
-        if (shouldLaunchWebDriver) baseComponent.launchWebDriver(packageName, resourcePath);
+        if (shouldLaunchWebDriver)
+            baseComponent.launchWebDriver(packageName, resourcePath, resource);
         if (shouldLaunchAndroidDriver) baseComponent.launchAndroidDriver(packageName, resourcePath);
-        if (shouldConfigureRestAssuredRequest) baseComponent.requestSpecification(packageName, resourcePath);
+        if (shouldConfigureRestAssuredRequest)
+            baseComponent.requestSpecification(packageName, resourcePath);
         return bean;
     }
 

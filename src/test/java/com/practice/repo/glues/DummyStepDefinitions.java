@@ -1,8 +1,8 @@
 package com.practice.repo.glues;
 
 import com.practice.repo.BaseTest;
-import com.practice.repo.components.fakeRestApi.FakeRESTApi;
-import com.practice.repo.components.tutorialsPoint.TutorialsPointRegisterUser;
+import com.practice.repo.components.api.fakeRestApi.FakeRESTApi;
+import com.practice.repo.components.web.tutorialsPoint.TutorialsPointRegisterUser;
 
 import java.util.Map;
 
