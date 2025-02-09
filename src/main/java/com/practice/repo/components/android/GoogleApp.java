@@ -41,7 +41,7 @@ public class GoogleApp extends BaseComponent {
 
     @Step
     public GoogleApp choosePhoneTabFromResult() {
-        gestures.scrollIntoView("PHONE", "right");
+        gestures.scroll("PHONE", "right");
         $x(PHONE_TAB).click();
         return this;
     }
