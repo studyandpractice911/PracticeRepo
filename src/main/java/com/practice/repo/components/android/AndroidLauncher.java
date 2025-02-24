@@ -3,10 +3,14 @@ package com.practice.repo.components.android;
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.practice.repo.enums.App.CHROME;
+import static com.practice.repo.enums.App.GOOGLE;
+import static com.practice.repo.enums.App.PHONE;
 import static com.practice.repo.enums.ResourceType.ANDROID;
 import static org.openqa.selenium.remote.CapabilityType.BROWSER_NAME;
 
 import com.practice.repo.BaseComponent;
+import com.practice.repo.enums.App;
 import com.practice.repo.utils.AutomationCapabilities;
 import com.practice.repo.utils.Resource;
 import com.practice.repo.utils.appium.Gestures;
@@ -25,15 +29,15 @@ public class AndroidLauncher extends BaseComponent {
     private static final String APP = "//android.widget.TextView[@content-desc='%s']";
 
     @Autowired
-    PhoneApp phoneApp;
-    @Autowired
-    GoogleApp googleApp;
-    @Autowired
-    ChromeApp chromeApp;
-    @Autowired
     AutomationCapabilities capabilities;
     @Autowired
     Gestures gestures;
+    @Autowired
+    Chrome chrome;
+    @Autowired
+    Phone phone;
+    @Autowired
+    Google google;
 
     @Step
     public AndroidLauncher openAppsDrawer() {
@@ -43,22 +47,33 @@ public class AndroidLauncher extends BaseComponent {
     }
 
     @Step
-    public PhoneApp openApp(String appName) {
-        $x(String.format(APP, appName)).shouldBe(clickable).click();
-        return phoneApp;
-    }
-
-    @Step
-    public ChromeApp chromeApp() {
-        capabilities.setCapability(BROWSER_NAME, "Chrome");
-        openApp("Chrome");
-        return chromeApp;
-    }
-
-    @Step
     public AndroidLauncher checkWidgets(String appName) {
         gestures.longClickGesture($x(String.format(APP, appName)));
         return this;
+    }
+
+    @Step
+    private void openApp(App app) {
+        $x(String.format(APP, app.getAppName())).shouldBe(clickable).click();
+    }
+
+    @Step
+    public Chrome chromeApp() {
+        capabilities.setCapability(BROWSER_NAME, "Chrome");
+        openApp(CHROME);
+        return chrome;
+    }
+
+    @Step
+    public Phone phoneApp() {
+        openApp(PHONE);
+        return phone;
+    }
+
+    @Step
+    public Google googleApp() {
+        openApp(GOOGLE);
+        return google;
     }
 
 }

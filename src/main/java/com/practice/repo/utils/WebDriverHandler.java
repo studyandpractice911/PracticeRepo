@@ -6,6 +6,7 @@ import static com.practice.repo.enums.UserAgent.TABLET;
 import com.codeborne.selenide.WebDriverRunner;
 import com.practice.repo.enums.UserAgent;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -69,6 +70,10 @@ public class WebDriverHandler {
 
     public AndroidDriver getAndroidDriver(){
         return (AndroidDriver) WebDriverRunner.getWebDriver();
+    }
+
+    public JavascriptExecutor getJavascriptExecutor(){
+        return (JavascriptExecutor) WebDriverRunner.getWebDriver();
     }
 
 }

@@ -2,7 +2,7 @@ package com.practice.repo.tests;
 
 import com.practice.repo.BaseTest;
 import com.practice.repo.components.android.AndroidLauncher;
-import com.practice.repo.components.android.ChromeApp;
+import com.practice.repo.components.android.Chrome;
 import com.practice.repo.components.api.fakeRestApi.FakeRESTApi;
 import com.practice.repo.components.web.amazonIndia.AmazonIndia;
 import com.practice.repo.components.web.tutorialsPoint.TutorialsPointAlerts;
@@ -60,7 +60,15 @@ public class DummyTest extends BaseTest {
                 .getComponent(AmazonIndia.class)
                 .checkDeals();
         componentManager
-                .getComponent(ChromeApp.class)
+                .getComponent(Chrome.class)
                 .closeTabs();
+    }
+
+    @Test(description = "appiumTest")
+    public void anotherAppiumTest() {
+        componentManager
+                .getComponent(AndroidLauncher.class)
+                .openAppsDrawer()
+                .checkWidgets("Google");
     }
 }

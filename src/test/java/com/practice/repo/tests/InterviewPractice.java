@@ -22,7 +22,34 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class InterviewPractice extends BaseTest {
+public class InterviewPractice extends BaseTest implements Runnable {
+
+    public static long subarraySumLambda(List<Integer> arr) {
+        return IntStream.range(0, arr.size()).boxed()
+                .flatMap(i -> IntStream.range(i, arr.size()).mapToObj(j -> arr.subList(i, j + 1)))
+                .mapToLong(subList -> subList.stream().mapToInt(Integer::intValue).sum())
+                .sum();
+    }
+
+    public static long subarraySum(List<Integer> arr) {
+        int n = arr.size();
+        long totalSum = 0;
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + arr.get(i);
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                totalSum += prefixSum[j + 1] - prefixSum[i];
+            }
+        }
+        return totalSum;
+    }
+
+    public static void main(String[] args) {
+        new Thread(new InterviewPractice()).start();
+    }
 
     @Test
     public void fibbonacci() {
@@ -68,6 +95,13 @@ public class InterviewPractice extends BaseTest {
                 .until(isConditionMet());
     }
 
+    @Test
+    public void test2() {
+        String str1 = "1234554321";
+        String str2 = "1534554521";
+        System.out.println(new StringBuilder(str2).reverse().toString().equals(str2));
+    }
+
     @Step
     public Function<WebDriver, Boolean> isConditionMet() {
         System.out.println("DummyTest.isConditionMet");
@@ -80,4 +114,8 @@ public class InterviewPractice extends BaseTest {
         };
     }
 
+    @Override
+    public void run() {
+        test2();
+    }
 }

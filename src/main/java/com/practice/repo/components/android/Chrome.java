@@ -12,14 +12,14 @@ import io.qameta.allure.Step;
 
 @Component
 @Resource(type = ANDROID, path = "/")
-public class ChromeApp extends BaseComponent {
+public class Chrome extends BaseComponent {
 
     private static final String TAB_SWITCHER = "//android.widget.ImageButton[contains(@resource-id,'tab_switcher_button')]";
     private static final String MENU = "//android.widget.ImageButton[contains(@resource-id,'menu_button')]";
     private static final String CLOSE_ALL_TABS = "//android.widget.TextView[@text='Close all tabs']";
 
     @Step
-    public ChromeApp closeTabs() {
+    public Chrome closeTabs() {
         $x(TAB_SWITCHER).click();
         $x(MENU).click();
         $x(CLOSE_ALL_TABS).click();
