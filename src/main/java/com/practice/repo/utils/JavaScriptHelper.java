@@ -12,6 +12,20 @@ public class JavaScriptHelper {
         return "arguments[0].click();";
     }
 
+    /**
+     * @implNote - Ensure to wrap the result of executeScript() in String
+     */
+    public String getInnerText() {
+        return "return document.documentElement.innerText;";
+    }
+
+    /**
+     * @implNote - Ensure to wrap the result of executeScript() in String
+     */
+    public String getPageTitle() {
+        return "return document.title;";
+    }
+
     public String createAlert(String alertText) {
         return String.format("alert('%s');", alertText);
     }
@@ -24,20 +38,16 @@ public class JavaScriptHelper {
         return String.format("window.scrollBy(%s,0)", xAxisPixels);
     }
 
+    public String verticalScroll(long yAxisPixels) {
+        return String.format("window.scrollBy(0,%s)", yAxisPixels);
+    }
+
     public String setValue(String elementId, String value) {
         return String.format("document.getElementById('%s').value='%s';", elementId, value);
     }
 
     public String enableCheckbox(String elementId) {
         return String.format("document.getElementById('%s').checked=true;", elementId);
-    }
-
-    public String getInnerText() {
-        return "return document.documentElement.innerText;";
-    }
-
-    public String getPageTitle() {
-        return "return document.title;";
     }
 
 }
