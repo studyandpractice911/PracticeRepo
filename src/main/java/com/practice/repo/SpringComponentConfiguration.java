@@ -16,7 +16,7 @@ public class SpringComponentConfiguration {
     public SpringComponentConfiguration() {
         if(System.getProperty("property.filename")==null){
             log.error("Could not resolve property file for key : [{}]", "property.filename");
-            log.error("Using default property file : [default.properties]");
+            log.warn("Using default property file : [default.properties]");
         }
         else log.info("Using property file : [{}.properties]", System.getProperty("property.filename"));
     }

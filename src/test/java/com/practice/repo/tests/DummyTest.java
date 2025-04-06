@@ -1,5 +1,7 @@
 package com.practice.repo.tests;
 
+import static com.codeborne.selenide.Selenide.closeWebDriver;
+
 import com.practice.repo.BaseTest;
 import com.practice.repo.components.android.AndroidLauncher;
 import com.practice.repo.components.android.Chrome;
@@ -23,6 +25,7 @@ public class DummyTest extends BaseTest {
     @Test(retryAnalyzer = BaseTest.class)
     public void seleniumTest() {
         componentManager.getComponent(TutorialsPointAlerts.class).checkAlert();
+        closeWebDriver();
         componentManager.getComponent(TutorialsPointRegisterUser.class).registerUser(FIRST_NAME, LAST_NAME);
     }
 
