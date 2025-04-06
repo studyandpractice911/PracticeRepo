@@ -42,9 +42,10 @@ public class WebDriverHandler {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments(List.of(
                 "--start-maximized",
-                "--disable-notifications",
-                "--ignore-certificate-errors"
+                "--disable-notifications"
         ));
+        capabilities.setAcceptInsecureCerts(true);
+        chromeOptions.merge(capabilities);
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
         return driver;
