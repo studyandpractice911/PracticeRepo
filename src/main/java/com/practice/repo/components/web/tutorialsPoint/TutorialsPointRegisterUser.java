@@ -4,11 +4,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.practice.repo.enums.ResourceType.WEB;
 
 import com.practice.repo.BaseComponent;
-import com.practice.repo.utils.JavaScriptHelper;
 import com.practice.repo.utils.Resource;
-import com.practice.repo.utils.WebDriverHandler;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.qameta.allure.Step;
