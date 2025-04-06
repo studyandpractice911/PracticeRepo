@@ -21,9 +21,10 @@ public class JavaScriptHelper {
 
     /**
      * @implNote - Ensure to wrap the result of executeScript() in String
+     * @implNote - Ensure to pass WebElement as 2nd parameter of executeScript()
      */
     public String getInnerText() {
-        return "return document.documentElement.innerText;";
+        return "return arguments[0].innerText";
     }
 
     /**
@@ -31,6 +32,20 @@ public class JavaScriptHelper {
      */
     public String getPageTitle() {
         return "return document.title;";
+    }
+
+    /**
+     * @implNote - Ensure to wrap the result of executeScript() in String
+     */
+    public String getCurrentUrl() {
+        return "return document.URL;";
+    }
+
+    /**
+     * @implNote - Ensure to wrap the result of executeScript() in String
+     */
+    public String getCurrentDomain() {
+        return "return document.domain;";
     }
 
     public String createAlert(String alertText) {
