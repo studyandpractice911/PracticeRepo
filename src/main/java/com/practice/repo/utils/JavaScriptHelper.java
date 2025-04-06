@@ -13,6 +13,13 @@ public class JavaScriptHelper {
     }
 
     /**
+     * @implNote - Ensure to pass WebElement as 2nd parameter of executeScript()
+     */
+    public String scrollIntoView() {
+        return "arguments[0].scrollIntoView();";
+    }
+
+    /**
      * @implNote - Ensure to wrap the result of executeScript() in String
      */
     public String getInnerText() {
@@ -40,6 +47,14 @@ public class JavaScriptHelper {
 
     public String verticalScroll(long yAxisPixels) {
         return String.format("window.scrollBy(0,%s)", yAxisPixels);
+    }
+
+    public String scrollToBottom() {
+        return "window.scrollBy(0,document.body.scrollHeight)";
+    }
+
+    public String scrollToTop() {
+        return "window.scrollTo(document.body.scrollHeight, 0)";
     }
 
     public String setValue(String elementId, String value) {
