@@ -59,3 +59,4 @@ bin/
 /.idea/caches/deviceStreaming.xml
 /local.properties
 /.idea/runConfigurations.xml
+/package-lock.json

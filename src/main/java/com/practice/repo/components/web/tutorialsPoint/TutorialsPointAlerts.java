@@ -4,6 +4,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.practice.repo.enums.ResourceType.WEB;
 
 import com.practice.repo.BaseComponent;
+import com.practice.repo.utils.JavaScriptHelper;
 import com.practice.repo.utils.Resource;
 import com.practice.repo.utils.WebDriverHandler;
 
@@ -20,6 +21,8 @@ public class TutorialsPointAlerts extends BaseComponent {
     private static final String ALERT_XPATH = "//button[text()='Alert']";
     @Autowired
     WebDriverHandler webDriverHandler;
+    @Autowired
+    JavaScriptHelper js;
 
     @Step
     public TutorialsPointAlerts checkAlert() {
@@ -27,6 +30,7 @@ public class TutorialsPointAlerts extends BaseComponent {
         Alert alert = webDriverHandler.getWebDriver().switchTo().alert();
         System.out.println(alert.getText());
         alert.accept();
+        webDriverHandler.getJavascriptExecutor().executeScript(js.createAlert("Hi"));
         return this;
     }
 
