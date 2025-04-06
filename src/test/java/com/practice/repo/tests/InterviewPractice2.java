@@ -6,10 +6,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -89,7 +86,7 @@ public class InterviewPractice2 extends BaseTest {
     }
 
     @Test
-    public void restTest4() {
+    public void soapTest() {
         RequestSpecification request1 = RestAssured.given().log().all();
 
         String var = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -113,7 +110,7 @@ public class InterviewPractice2 extends BaseTest {
     }
 
     @Test
-    public void restTest5() {
+    public void basicAuth() {
         RequestSpecification request1 = RestAssured.given().log().all();
         Response response1 = request1
                 .baseUri("https://httpbin.org/")
@@ -129,20 +126,41 @@ public class InterviewPractice2 extends BaseTest {
 
         RequestSpecification request1 = RestAssured.given().log().all();
         Response response1 = request1
-                .baseUri("https://example.com/")
+                .baseUri("https://your-auth-server.com")
                 .auth()
-                .basic("user", "pass")
-                .formParam("grant_type", "client_credentials")
-                .post("/accesstoken");
+                .basic("username", "password")
+                .post("/oauth/token");
         System.out.println("===================================================================");
         String accessToken = response1.jsonPath().get("access_token").toString();
 
         RequestSpecification request2 = RestAssured.given().log().all();
         Response response2 = request2
-                .baseUri("https://localhost/8080")
+                .baseUri("https://example.com")
                 .auth()
                 .oauth2(accessToken)
-                .get("/coreid");
+                .get("/protected/resource");
+        response2.then().log().all();
+    }
+
+    @Test
+    public void restTest7() {
+
+        RequestSpecification request1 = RestAssured.given().log().all();
+        Response response1 = request1
+                .baseUri("https://your-auth-server.com")
+                .formParam("client_id", "username")
+                .formParam("client_secret", "password")
+                .formParam("grant_type", "client_credentials")
+                .post("/oauth/token");
+        System.out.println("===================================================================");
+        String accessToken = response1.jsonPath().get("access_token").toString();
+
+        RequestSpecification request2 = RestAssured.given().log().all();
+        Response response2 = request2
+                .baseUri("https://example.com")
+                .auth()
+                .oauth2(accessToken)
+                .get("/protected/resource");
         response2.then().log().all();
     }
 }
