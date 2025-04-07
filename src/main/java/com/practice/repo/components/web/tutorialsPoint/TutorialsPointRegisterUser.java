@@ -20,11 +20,12 @@ public class TutorialsPointRegisterUser extends BaseComponent {
     private static final String REGISTER_XPATH = "//input[@type='submit']";
 
     @Step
-    public TutorialsPointRegisterUser registerUser(String firstName, String lastname) {
+    public TutorialsPointRegisterUser registerUser(String firstName, String lastname,
+                                                   String username, String password) {
         $x(FIRST_NAME_XPATH).setValue(firstName);
         $x(LSAT_NAME_XPATH).setValue(lastname);
-        $x(USERNAME_XPATH).setValue(firstName + lastname);
-        $x(PASSWORD_XPATH).setValue(firstName + "@" + lastname);
+        $x(USERNAME_XPATH).setValue(username);
+        $x(PASSWORD_XPATH).setValue(password);
         $x(REGISTER_XPATH).click();
         return this;
     }

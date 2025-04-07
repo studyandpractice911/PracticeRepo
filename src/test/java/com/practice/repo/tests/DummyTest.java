@@ -26,7 +26,8 @@ public class DummyTest extends BaseTest {
     public void seleniumTest() {
         componentManager.getComponent(TutorialsPointAlerts.class).checkAlert();
         closeWebDriver();
-        componentManager.getComponent(TutorialsPointRegisterUser.class).registerUser(FIRST_NAME, LAST_NAME);
+        componentManager.getComponent(TutorialsPointRegisterUser.class)
+                .registerUser(FIRST_NAME, LAST_NAME, "username", "pwd");
     }
 
     @Test

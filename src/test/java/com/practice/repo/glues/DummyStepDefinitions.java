@@ -4,6 +4,7 @@ import com.practice.repo.BaseTest;
 import com.practice.repo.components.api.fakeRestApi.FakeRESTApi;
 import com.practice.repo.components.web.tutorialsPoint.TutorialsPointRegisterUser;
 
+import java.util.List;
 import java.util.Map;
 
 import io.cucumber.datatable.DataTable;
@@ -20,11 +21,14 @@ public class DummyStepDefinitions extends BaseTest {
         componentManager.getComponent(TutorialsPointRegisterUser.class);
     }
 
-    @When("User enters first and last names")
+    @When("User fills the form")
     public void userEntersAnd(DataTable dataTable) {
-        Map<String, String> name = dataTable.asMap();
-        componentManager.getComponent(TutorialsPointRegisterUser.class)
-                .registerUser(name.get("first"), name.get("last"));
+        List<Map<String, String>> users = dataTable.asMaps();
+        users.forEach(user -> {
+            componentManager.getComponent(TutorialsPointRegisterUser.class)
+                    .registerUser(user.get("firstName"), user.get("lastName"),
+                            user.get("username"), user.get("password"));
+        });
     }
 
     @Then("User clicks on register button")
@@ -45,5 +49,11 @@ public class DummyStepDefinitions extends BaseTest {
     @Then("User gets the book details")
     public void userGetsTheBookDetails() {
         System.out.println("DummyStepDefinitions.userGetsTheBookDetails");
+    }
+
+    @When("User enters {string}, {string}, {string}, {string}")
+    public void userEnters(String firstName, String lastName, String username, String password) {
+        componentManager.getComponent(TutorialsPointRegisterUser.class)
+                .registerUser(firstName, lastName, username, password);
     }
 }
