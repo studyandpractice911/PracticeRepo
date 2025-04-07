@@ -3,8 +3,12 @@
 
 Feature: Dummy feature
 
+  Background:
+    This is a dummy feature file
+    Feel free to add any test for practice purpose
+
   @UI
-  Scenario: UI testing1 - using DataTable
+  Scenario: UI testing
     Given User opens tutorials point webpage
     When User fills the form
       |firstName|lastName|username|password|
