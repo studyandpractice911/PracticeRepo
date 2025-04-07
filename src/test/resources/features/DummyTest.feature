@@ -8,7 +8,7 @@ Feature: Dummy feature
     Feel free to add any test for practice purpose
 
   @UI
-  Scenario: UI testing
+  Scenario: UI testing - Using DataTable
     Given User opens tutorials point webpage
     When User fills the form
       |firstName|lastName|username|password|
