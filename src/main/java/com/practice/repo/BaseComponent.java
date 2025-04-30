@@ -49,7 +49,7 @@ public class BaseComponent extends SpringComponentConfiguration {
         System.setProperty("base.url", URL);
     }
 
-    public void launchWebDriver(String packageName, String resourcePath, Resource resource) {
+    void launchWebDriver(String packageName, String resourcePath, Resource resource) {
         resolveUrl(packageName, resourcePath);
         if (!WebDriverRunner.hasWebDriverStarted()) {
             WebDriver driver = webDriverHandler.configureWebDriver(resource);
@@ -58,7 +58,7 @@ public class BaseComponent extends SpringComponentConfiguration {
         Selenide.open(System.getProperty("base.url"));
     }
 
-    public void launchAndroidDriver(String packageName, String resourcePath) {
+    void launchAndroidDriver(String packageName, String resourcePath) {
         resolveUrl(packageName, resourcePath);
         if (!WebDriverRunner.hasWebDriverStarted()) {
             try {
@@ -70,7 +70,7 @@ public class BaseComponent extends SpringComponentConfiguration {
         }
     }
 
-    public void requestSpecification(String packageName, String resourcePath) {
+    void requestSpecification(String packageName, String resourcePath) {
         resolveUrl(packageName, resourcePath);
     }
 
