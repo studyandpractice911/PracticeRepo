@@ -14,12 +14,10 @@ public class FakeRESTApi extends BaseComponent {
 
     @Step
     public FakeRESTApi getBook(String id) {
-        Response response = request()
+        Response response = restAssured()
                 .pathParam("id", id)
-                .get("/api/v1/Books/{id}")
-                .andReturn();
+                .get("/api/v1/Books/{id}");
         response.then().assertThat().statusCode(200);
-        System.out.println(response.asPrettyString());
         return this;
     }
 

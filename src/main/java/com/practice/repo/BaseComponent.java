@@ -1,5 +1,7 @@
 package com.practice.repo;
 
+import static io.restassured.filter.log.LogDetail.ALL;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.practice.repo.utils.Resource;
@@ -13,10 +15,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Objects;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
+import io.restassured.filter.Filter;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 
 @Component
@@ -68,11 +74,16 @@ public class BaseComponent extends SpringComponentConfiguration {
         resolveUrl(packageName, resourcePath);
     }
 
-    protected RequestSpecification request() {
+    protected RequestSpecification restAssured() {
+
+        List<Filter> filters = List.of(
+                new AllureRestAssured(),
+                new RequestLoggingFilter(ALL),
+                new ResponseLoggingFilter(ALL));
+
         return RestAssured.given()
-                .filter(new AllureRestAssured())
-                .baseUri(System.getProperty("base.url"))
-                .log().all();
+                .filters(filters)
+                .baseUri(System.getProperty("base.url"));
     }
 
 }
